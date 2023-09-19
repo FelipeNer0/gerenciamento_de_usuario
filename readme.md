@@ -1,4 +1,4 @@
-## Esse projeto foi criado a principio como uma desafio para vaga de emprego
+## Esse projeto foi criado a principio como um desafio para vaga de emprego
 
 ### Trata-se de um sistema de gerenciamento de usuários, com autenticação de login e CRUD basico com HTML
 
