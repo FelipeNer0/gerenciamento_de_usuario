@@ -1,6 +1,6 @@
 ## Esse projeto foi criado a principio como um desafio para vaga de emprego
 
-### Trata-se de um sistema de gerenciamento de usuários, com autenticação de login e CRUD basico com HTML
+### Trata-se de um sistema de gerenciamento de usuários, com autenticação de login e CRUD basico com NODE.JS
 
 ## Tecnologias 📱
 
