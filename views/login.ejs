@@ -1,0 +1,18 @@
+<head>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<div class="login-container">
+    <form action="/login" method="POST" class="login-form">
+        <h1>Login</h1>
+        <input type="text" name="username" placeholder="Usuário" required><br>
+        <input type="password" name="password" placeholder="Senha" required><br>
+        <button type="submit">Entrar</button>
+    </form>
+</div>
+
+<% if (typeof error !=='undefined' ) { %>
+    <p>
+        <%= error %>
+    </p>
+    <% } %>

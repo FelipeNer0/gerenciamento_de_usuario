@@ -1,0 +1,96 @@
+<!-- crud.ejs -->
+<head>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<header>    
+    <nav>
+        <ul>
+            <li><a href="/layout">Home</a></li>
+            <li><a href="#">CRUD</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+<h2>Lista de Usuários</h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Ações</th>
+    </tr>
+    <% users.forEach(user=> { %>
+        <tr>
+            <td>
+                <%= user.id %>
+            </td>
+            <td>
+                <%= user.username %>
+            </td>
+            <td>
+                <button onclick="deleteUser(<%= user.id %>)">Excluir</button>
+                <button onclick="editUser(<%= user.id %>, '<%= user.username %>')">Editar</button>
+            </td>
+        </tr>
+        <% }); %>
+</table>
+
+<h2>Adicionar Novo Usuário</h2>
+<form action="/users" method="POST">
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="text" name="password" placeholder="Password" required>
+    <button type="submit">Adicionar</button>
+</form>
+
+<!-- Formulário para editar usuário -->
+<div id="editUserForm" style="display:none;">
+    <h2>Editar Usuário</h2>
+    <form id="updateUserForm" method="POST" >
+        <input type="hidden" id="editUserId" name="id">
+        <input type="text" id="editUsername" name="username" placeholder="Username" required>
+        <input type="text" name="password" placeholder="Password" required>
+        <button type="submit">Atualizar</button>
+    </form>
+</div>
+
+
+<script>
+    function deleteUser(userId) {
+        if (confirm("Tem certeza que deseja excluir este usuário?")) {
+            fetch('/users/' + userId, {
+                method: 'DELETE'
+            })
+                .then(response => response.text())
+                .then(message => {
+                    alert(message);
+                    location.href = '/crud'; // Redireciona para a página /crud após a exclusão
+                });
+        }
+    }
+
+    function editUser(userId, username) {
+        document.getElementById('editUserId').value = userId;
+        document.getElementById('editUsername').value = username;
+        document.getElementById('editUserForm').style.display = 'block';
+    }
+
+    document.getElementById('updateUserForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        var formData = new FormData(this);
+        var userId = document.getElementById('editUserId').value;       
+
+        fetch('/users/' + userId, {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.text())
+            .then(message => {
+                alert(message);
+                location.reload();
+            });
+    });
+
+
+
+</script>

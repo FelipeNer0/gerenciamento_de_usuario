@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu App</title>
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+<body>
+    <header>
+        <h1>Bem-vindo, <%= username %>!</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="/crud">CRUD</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Dashboard</h2>
+        <canvas id="userCountChart"></canvas>
+
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('userCountChart').getContext('2d');
+      
+        async function fetchData() {
+          try {
+            const response = await fetch('/api/userCount');
+            const data = await response.json();
+      
+            const labels = ['Usuários'];
+            const values = [data.user_count];
+      
+            new Chart(ctx, {
+              type: 'bar',
+              data: {
+                labels: labels,
+                datasets: [{
+                  label: 'Quantidade de Usuários',
+                  data: values,
+                  backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                  borderColor: 'rgba(75, 192, 192, 1)',
+                  borderWidth: 1
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                    stepSize: 1
+                  }
+                }
+              }
+            });
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      
+        fetchData();
+      </script>
+      
+      
+      
+</body>
+</html>
